@@ -1,0 +1,145 @@
+{
+  "name": "fe-deploy",
+  "displayName": "FE Deploy",
+  "description": "Build and deploy frontend project with a right click",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "icon": "images/icon.jpg",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:fe-deploy.buildAndDeploy"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "fe-deploy.buildAndDeploy",
+        "title": "Build and Deploy",
+        "icon": {
+          "light": "images/icon.jpg",
+          "dark": "images/icon.jpg"
+        }
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "resourceFilename == package.json",
+          "command": "fe-deploy.buildAndDeploy",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "resourceFilename == package.json",
+          "command": "fe-deploy.buildAndDeploy",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "FE Deploy",
+      "properties": {
+        "feDeploy.buildCommand": {
+          "type": "string",
+          "default": "npm run build",
+          "description": "Command to execute for building the project"
+        },
+        "feDeploy.targetDirectory": {
+          "type": "string",
+          "default": "~/deploy-target",
+          "description": "Directory where the build output will be deployed (for local deployment)"
+        },
+        "feDeploy.deployMode": {
+          "type": "string",
+          "enum": [
+            "ssh",
+            "copy"
+          ],
+          "default": "ssh",
+          "description": "Deployment method ('copy' for local, 'ssh' for remote server)"
+        },
+        "feDeploy.excludeFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "node_modules",
+            ".git"
+          ],
+          "description": "Files or directories to exclude from deployment"
+        },
+        "feDeploy.buildOutputDir": {
+          "type": "string",
+          "default": "",
+          "description": "Specific build output directory (e.g., 'dist', 'build'). Leave empty to auto-detect"
+        },
+        "feDeploy.ssh.host": {
+          "type": "string",
+          "default": "",
+          "description": "SSH server hostname or IP address"
+        },
+        "feDeploy.ssh.port": {
+          "type": "number",
+          "default": 22,
+          "description": "SSH server port"
+        },
+        "feDeploy.ssh.username": {
+          "type": "string",
+          "default": "",
+          "description": "SSH username"
+        },
+        "feDeploy.ssh.password": {
+          "type": "string",
+          "default": "",
+          "description": "SSH password (leave empty if using private key)"
+        },
+        "feDeploy.ssh.privateKeyPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to SSH private key file (leave empty if using password)"
+        },
+        "feDeploy.ssh.passphrase": {
+          "type": "string",
+          "default": "",
+          "description": "Passphrase for SSH private key (if required)"
+        },
+        "feDeploy.ssh.remotePath": {
+          "type": "string",
+          "default": "/var/www/html",
+          "description": "Remote directory path where files will be uploaded"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vscode:prepublish": "npm run lint",
+    "lint": "eslint .",
+    "package": "vsce package",
+    "convert-icons": "node convert-icons.js"
+  },
+  "keywords": [
+    "deploy",
+    "build",
+    "upload",
+    "ssh"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/vscode": "^1.60.0",
+    "eslint": "^8.56.0",
+    "vsce": "^2.15.0",
+    "vscode-test": "^1.6.1"
+  },
+  "dependencies": {
+    "ssh2": "^1.16.0"
+  }
+}

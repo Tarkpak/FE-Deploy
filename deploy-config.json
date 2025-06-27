@@ -1,0 +1,19 @@
+{
+  "buildCommand": "npm run build",
+  "targetDirectory": "D:/deploy-target",
+  "deployMode": "copy",
+  "excludeFiles": [
+    "node_modules",
+    ".git"
+  ],
+  "buildOutputDir": "",
+  "ssh": {
+    "host": "",
+    "port": 22,
+    "username": "",
+    "password": "",
+    "privateKeyPath": "",
+    "passphrase": "",
+    "remotePath": "/var/www/html"
+  }
+} 
