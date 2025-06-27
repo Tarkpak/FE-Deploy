@@ -6,7 +6,7 @@
   "engines": {
     "vscode": "^1.60.0"
   },
-  "icon": "images/icon.png",
+  "icon": "images/icon-light.png",
   "categories": [
     "Other"
   ],
@@ -20,7 +20,7 @@
         "command": "fe-deploy.buildAndDeploy",
         "title": "Build and Deploy",
         "icon": {
-          "light": "images/icon.png",
+          "light": "images/icon-light.png",
           "dark": "images/icon.png"
         }
       }
