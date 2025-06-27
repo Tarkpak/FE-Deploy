@@ -6,7 +6,7 @@
   "engines": {
     "vscode": "^1.60.0"
   },
-  "icon": "images/icon.jpg",
+  "icon": "images/icon.png",
   "categories": [
     "Other"
   ],
@@ -20,8 +20,8 @@
         "command": "fe-deploy.buildAndDeploy",
         "title": "Build and Deploy",
         "icon": {
-          "light": "images/icon.jpg",
-          "dark": "images/icon.jpg"
+          "light": "images/icon.png",
+          "dark": "images/icon.png"
         }
       }
     ],
@@ -121,8 +121,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "vscode:prepublish": "npm run lint",
     "lint": "eslint .",
-    "package": "vsce package",
-    "convert-icons": "node convert-icons.js"
+    "package": "vsce package"
   },
   "keywords": [
     "deploy",
@@ -130,8 +129,13 @@
     "upload",
     "ssh"
   ],
-  "author": "",
+  "author": "tarkpak",
   "license": "MIT",
+  "publisher": "tarkpak",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tarkpak/FE-Deploy.git"
+  },
   "devDependencies": {
     "@types/node": "^20.10.5",
     "@types/vscode": "^1.60.0",
