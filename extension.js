@@ -19,20 +19,52 @@ function activate(context) {
     console.log('FE Deploy extension is now active');
 
     let disposable = vscode.commands.registerCommand('fe-deploy.buildAndDeploy', async (fileUri) => {
+        // If called from the editor context menu, fileUri might be undefined
         if (!fileUri) {
             const editor = vscode.window.activeTextEditor;
             if (editor) {
-                fileUri = editor.document.uri;
+                const fileName = path.basename(editor.document.uri.fsPath);
+                if (fileName.toLowerCase() === 'package.json') {
+                    fileUri = editor.document.uri;
+                } else {
+                    vscode.window.showErrorMessage('This command can only be used with package.json files');
+                    return;
+                }
+            } else {
+                vscode.window.showErrorMessage('No package.json file selected or open in editor');
+                return;
             }
-        }
-
-        if (!fileUri) {
-            vscode.window.showErrorMessage('No package.json file selected');
-            return;
+        } else {
+            // If called from explorer context menu, check if it's a package.json file or folder
+            const fileStat = await vscode.workspace.fs.stat(fileUri);
+            if (fileStat.type === vscode.FileType.Directory) {
+                // It's a directory, check if it contains package.json
+                const packageJsonUri = vscode.Uri.joinPath(fileUri, 'package.json');
+                try {
+                    await vscode.workspace.fs.stat(packageJsonUri);
+                    // package.json exists, use it
+                    fileUri = packageJsonUri;
+                } catch (e) {
+                    // No package.json in the directory
+                    vscode.window.showErrorMessage('No package.json found in the selected directory');
+                    return;
+                }
+            } else {
+                // It's a file, check if it's package.json
+                const fileName = path.basename(fileUri.fsPath);
+                if (fileName.toLowerCase() !== 'package.json') {
+                    vscode.window.showErrorMessage('This command can only be used with package.json files');
+                    return;
+                }
+            }
         }
 
         // Get the folder containing the package.json
         const projectFolder = path.dirname(fileUri.fsPath);
+        
+        // Show a status bar message
+        const projectName = path.basename(projectFolder);
+        const statusBarMessage = vscode.window.setStatusBarMessage(`Starting build and deploy for ${projectName}...`);
         
         try {
             // Load configuration - first from settings, then fall back to file
@@ -156,7 +188,12 @@ function activate(context) {
                 }
             });
             
+            // Dispose of the status bar message
+            statusBarMessage.dispose();
+            
         } catch (error) {
+            // Dispose of the status bar message on error
+            statusBarMessage.dispose();
             vscode.window.showErrorMessage(`Deployment failed: ${error.message}`);
         }
     });

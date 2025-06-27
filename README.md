@@ -12,9 +12,14 @@ A VSCode extension that allows you to build your frontend project and deploy it 
 
 ## Usage
 
-1. Right-click on package.json in the Explorer view
-2. Select "Build and Deploy" from the context menu
-3. The extension will run your build command and deploy the output to the target directory
+You can trigger the build and deploy operation in several ways:
+
+1. Right-click on package.json file in the Explorer view
+2. Right-click inside the package.json file when it's open in the editor
+3. Click on the deploy icon in the editor title bar when package.json is open
+4. Right-click on a folder in Explorer and select "Build and Deploy" (will look for package.json in that folder)
+
+The extension will run your build command and deploy the output to the target directory according to your configuration.
 
 ## Configuration
 

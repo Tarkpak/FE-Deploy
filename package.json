@@ -11,7 +11,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:fe-deploy.buildAndDeploy"
+    "onCommand:fe-deploy.buildAndDeploy",
+    "onLanguage:json"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -31,9 +32,21 @@
           "when": "resourceFilename == package.json",
           "command": "fe-deploy.buildAndDeploy",
           "group": "navigation"
+        },
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "fe-deploy.buildAndDeploy",
+          "group": "9_cutcopypaste"
         }
       ],
       "editor/title": [
+        {
+          "when": "resourceFilename == package.json",
+          "command": "fe-deploy.buildAndDeploy",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
         {
           "when": "resourceFilename == package.json",
           "command": "fe-deploy.buildAndDeploy",
