@@ -11,18 +11,18 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:fe-deploy.buildAndDeploy",
-    "onLanguage:json"
+    "onLanguage:json",
+    "onStartupFinished"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "fe-deploy.buildAndDeploy",
+        "command": "feDeploy.buildAndDeploy",
         "title": "Build and Deploy",
         "icon": {
           "light": "images/icon-light.png",
-          "dark": "images/icon.png"
+          "dark": "images/icon-light.png"
         }
       }
     ],
@@ -30,26 +30,26 @@
       "explorer/context": [
         {
           "when": "resourceFilename == package.json",
-          "command": "fe-deploy.buildAndDeploy",
+          "command": "feDeploy.buildAndDeploy",
           "group": "navigation"
         },
         {
           "when": "explorerResourceIsFolder",
-          "command": "fe-deploy.buildAndDeploy",
+          "command": "feDeploy.buildAndDeploy",
           "group": "9_cutcopypaste"
         }
       ],
       "editor/title": [
         {
           "when": "resourceFilename == package.json",
-          "command": "fe-deploy.buildAndDeploy",
+          "command": "feDeploy.buildAndDeploy",
           "group": "navigation"
         }
       ],
       "editor/context": [
         {
           "when": "resourceFilename == package.json",
-          "command": "fe-deploy.buildAndDeploy",
+          "command": "feDeploy.buildAndDeploy",
           "group": "navigation"
         }
       ]
@@ -134,7 +134,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "vscode:prepublish": "npm run lint",
     "lint": "eslint .",
-    "package": "vsce package"
+    "package": "vsce package",
+    "publish": "vsce publish"
   },
   "keywords": [
     "deploy",

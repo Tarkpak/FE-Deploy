@@ -1,9 +1,10 @@
 .vscode/**
-node_modules/**
 .gitignore
 .yarnrc
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
-**/*.ts 
+**/*.ts
+# 不要忽略 node_modules
+!node_modules
