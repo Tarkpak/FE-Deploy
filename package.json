@@ -145,7 +145,8 @@
     "lint": "eslint .",
     "package": "vsce package",
     "publish": "vsce publish",
-    "install": "vsce package && code --install-extension fe-deploy-1.0.0.vsix && code"
+    "install": "vsce package && code --install-extension fe-deploy-1.0.0.vsix && code",
+    "install-cursor": "vsce package && cursor --install-extension fe-deploy-1.0.0.vsix && cursor"
   },
   "keywords": [
     "deploy",

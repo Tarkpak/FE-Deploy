@@ -711,7 +711,7 @@ async function deployViaSSH(sourceDir, sshConfig, excludeFiles, progress, token)
                 
                 if (sshConfig.privateKeyPath) {
                     // Use private key authentication
-                    scpCommand = `scp -O -P ${sshConfig.port} -i "${sshConfig.privateKeyPath}" -o "StrictHostKeyChecking=no" "${localZipPath}" ${sshConfig.username}@${sshConfig.host}:${remoteZipPath}`;
+                    scpCommand = `scp -P ${sshConfig.port} -i "${sshConfig.privateKeyPath}" -o "StrictHostKeyChecking=no" "${localZipPath}" ${sshConfig.username}@${sshConfig.host}:${remoteZipPath}`;
                 } else {
                     // Password-based auth without sshpass - will prompt for password
                     // Create an expect script to handle the password prompt
@@ -737,7 +737,7 @@ expect eof
                     } catch (expectErr) {
                         // Expect is not installed, use basic scp command
                         logger.log('expect未安装，使用基本SCP命令，可能需要手动输入密码');
-                        scpCommand = `scp -O -P ${sshConfig.port} -o "StrictHostKeyChecking=no" "${localZipPath}" ${sshConfig.username}@${sshConfig.host}:${remoteZipPath}`;
+                        scpCommand = `scp -P ${sshConfig.port} -o "StrictHostKeyChecking=no" "${localZipPath}" ${sshConfig.username}@${sshConfig.host}:${remoteZipPath}`;
                         vscode.window.showWarningMessage('SCP will prompt for password. Please enter it in the terminal when prompted.');
                     }
                 }
