@@ -24,6 +24,10 @@
           "light": "images/icon-light.png",
           "dark": "images/icon-light.png"
         }
+      },
+      {
+        "command": "feDeploy.deployOnly",
+        "title": "Deploy Only (Skip Build)"
       }
     ],
     "menus": {
@@ -37,6 +41,11 @@
           "when": "explorerResourceIsFolder",
           "command": "feDeploy.buildAndDeploy",
           "group": "9_cutcopypaste"
+        },
+        {
+          "command": "feDeploy.deployOnly",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation"
         }
       ],
       "editor/title": [
@@ -135,7 +144,8 @@
     "vscode:prepublish": "npm run lint",
     "lint": "eslint .",
     "package": "vsce package",
-    "publish": "vsce publish"
+    "publish": "vsce publish",
+    "install": "vsce package && code --install-extension fe-deploy-1.0.0.vsix && code"
   },
   "keywords": [
     "deploy",
@@ -158,6 +168,9 @@
     "vscode-test": "^1.6.1"
   },
   "dependencies": {
+    "archiver": "^7.0.1",
+    "basic-ftp": "^5.0.5",
+    "node-scp": "^0.0.25",
     "ssh2": "^1.16.0"
   }
 }

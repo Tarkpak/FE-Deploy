@@ -4,7 +4,7 @@
   "description": "A test project for FE Deploy extension",
   "main": "index.js",
   "scripts": {
-    "build": "mkdir dist && echo 'This is a test build' > dist/index.html"
+    "build": "node build.js"
   },
   "keywords": [],
   "author": "",
